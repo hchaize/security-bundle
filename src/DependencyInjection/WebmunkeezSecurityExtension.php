@@ -43,6 +43,12 @@ final class WebmunkeezSecurityExtension extends Extension implements PrependExte
 
         $config = $this->processConfiguration(new Configuration(), $configs);
 
+        $publicTokenAuthenticatorDefinition = $container->getDefinition('webmunkeez_security.authenticator.session_token.public');
+        $publicTokenAuthenticatorDefinition->replaceArgument(2, new Reference($config['user_provider']['public']['id']));
+
+        $privateTokenAuthenticatorDefinition = $container->getDefinition('webmunkeez_security.authenticator.session_token.private');
+        $privateTokenAuthenticatorDefinition->replaceArgument(2, new Reference($config['user_provider']['private']['id']));
+
         $container->setParameter('webmunkeez_security.cookie.name', $config['cookie']['name']);
         $container->setParameter('webmunkeez_security.jwt.public_key_path', $config['jwt']['public_key_path']);
         $container->setParameter('webmunkeez_security.jwt.secret_key_path', $config['jwt']['secret_key_path']);
