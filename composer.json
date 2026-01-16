@@ -1,7 +1,7 @@
 {
-    "name": "webmunkeez/security-bundle",
+    "name": "hchaize/security-bundle",
     "type": "symfony-bundle",
-    "description": "JWT based security for Symfony.",
+    "description": "JWT based security for Symfony. fork of webmunkeez/security-bundle",
     "keywords": [
         "symfony",
         "autowiring",
@@ -10,13 +10,18 @@
         "token",
         "jwt"
     ],
-    "homepage": "https://github.com/yannissgarra/security-bundle",
+    "homepage": "https://github.com/hchaize/security-bundle",
     "license": "MIT",
     "authors": [
         {
             "name": "Yannis Sgarra",
             "email": "hello@yannissgarra.com",
             "homepage": "https://yannissgarra.com"
+        },
+        {
+            "name": "Hélios VAILLANT",
+            "email": "helios.chaize@gmail.com",
+            "homepage": "https://helios.howlarios.fr"
         }
     ],
     "require": {
