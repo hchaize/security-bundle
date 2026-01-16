@@ -25,15 +25,6 @@ final class Configuration implements ConfigurationInterface
 
         $treeBuilder->getRootNode()
             ->children()
-                ->arrayNode('user_provider')
-                    ->isRequired()
-                    ->children()
-                        ->scalarNode('id')
-                            ->isRequired()
-                            ->cannotBeEmpty()
-                        ->end() // id
-                    ->end()
-                ->end() // user_provider
                 ->arrayNode('cookie')
                     ->addDefaultsIfNotSet()
                     ->children()

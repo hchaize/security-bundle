@@ -41,11 +41,7 @@ final class WebmunkeezSecurityExtension extends Extension implements PrependExte
         $loader->load('validator.php');
         $loader->load('voter.php');
 
-        $configuration = new Configuration();
-        $config = $this->processConfiguration($configuration, $configs);
-
-        $tokenAuthenticatorDefinition = $container->getDefinition(TokenAuthenticator::class);
-        $tokenAuthenticatorDefinition->replaceArgument(2, new Reference($config['user_provider']['id']));
+        $config = $this->processConfiguration(new Configuration(), $configs);
 
         $container->setParameter('webmunkeez_security.cookie.name', $config['cookie']['name']);
         $container->setParameter('webmunkeez_security.jwt.public_key_path', $config['jwt']['public_key_path']);
@@ -70,16 +66,16 @@ final class WebmunkeezSecurityExtension extends Extension implements PrependExte
                     'pattern' => '^/(_(profiler|wdt)|css|images|js)/',
                     'security' => false,
                 ],
-                'main' => [
+                'public' => [
                     'stateless' => true,
-                    'custom_authenticators' => [TokenAuthenticator::class],
+                    'pattern' => '^/public/',
+                    'custom_authenticators' => ['webmunkeez_security.authenticator.session_token.public'],
                 ],
-            ],
-            'role_hierarchy' => [
-                'ROLE_GOD' => 'ROLE_ADMIN',
-                'ROLE_ADMIN' => 'ROLE_MODERATOR',
-                'ROLE_MODERATOR' => 'ROLE_EDITOR',
-                'ROLE_EDITOR' => 'ROLE_USER',
+                'private' => [
+                    'stateless' => true,
+                    'pattern' => '^/private/',
+                    'custom_authenticators' => ['webmunkeez_security.authenticator.session_token.private'],
+                ],
             ],
         ]);
     }
